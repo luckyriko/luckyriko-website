@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "mihoyo-ai",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:bg": "astro dev --background",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

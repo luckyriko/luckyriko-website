@@ -1,0 +1,113 @@
+---
+import type { NewsItem } from '../data/news';
+
+interface Props {
+	items: NewsItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="news-list">
+	{
+		items.map((item) => (
+			<article class="news-item reveal">
+				<a class="news-link" href={`/news/${item.slug}`}>
+					<figure class="news-visual">
+						<img src={item.image} alt="" width="640" height="400" loading="lazy" decoding="async" />
+					</figure>
+					<div class="news-body">
+						<p class="news-meta">
+							<span>{item.category}</span>
+							<time datetime={item.date}>{item.date}</time>
+						</p>
+						<h3>{item.title}</h3>
+						<p>{item.summary}</p>
+					</div>
+				</a>
+			</article>
+		))
+	}
+</div>
+
+<style>
+	.news-list {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.news-link {
+		display: grid;
+		grid-template-columns: minmax(160px, 280px) 1fr;
+		gap: 1.25rem;
+		align-items: stretch;
+		padding-bottom: 1.25rem;
+		border-bottom: 1px solid var(--mh-line);
+		transition: opacity 0.25s var(--mh-ease);
+	}
+
+	.news-link:hover {
+		opacity: 0.92;
+	}
+
+	.news-visual {
+		margin: 0;
+		overflow: hidden;
+		background: var(--mh-surface-2);
+		aspect-ratio: 16 / 10;
+	}
+
+	.news-visual img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.6s var(--mh-ease);
+	}
+
+	.news-link:hover .news-visual img {
+		transform: scale(1.03);
+	}
+
+	.news-body {
+		display: grid;
+		align-content: center;
+		gap: 0.45rem;
+		padding-block: 0.2rem;
+	}
+
+	.news-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin: 0;
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		color: var(--mh-muted);
+	}
+
+	.news-meta span {
+		color: var(--mh-accent);
+		font-weight: 600;
+	}
+
+	h3 {
+		margin: 0;
+		font-family: var(--mh-font-display);
+		font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+		font-weight: 650;
+		line-height: 1.35;
+	}
+
+	.news-body p:last-child {
+		margin: 0;
+		color: var(--mh-muted);
+		line-height: 1.65;
+	}
+
+	@media (max-width: 700px) {
+		.news-link {
+			grid-template-columns: 1fr;
+			gap: 0.85rem;
+		}
+	}
+</style>

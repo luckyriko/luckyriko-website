@@ -1,17 +1,232 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProductCarousel from '../components/ProductCarousel.astro';
+import NewsList from '../components/NewsList.astro';
+import { products } from '../data/products';
+import { news } from '../data/news';
+import { about } from '../data/about';
+import { careers } from '../data/careers';
+import { site } from '../data/site';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={`${site.name} · ${site.slogan}`} description={site.description}>
+	<div class="home-panels">
+		<section class="home-panel" id="home" data-home-section="home">
+			<Hero />
+		</section>
+
+		<section class="home-panel home-panel-content" id="products" data-home-section="products">
+			<div class="container-wide panel-inner">
+				<div class="section-head reveal">
+					<span class="eyebrow">Our Products</span>
+					<h2>产品信息</h2>
+					<p>以原创 IP 为核心，持续打造高品质互动内容与多元文化产品。</p>
+				</div>
+				<ProductCarousel products={products} />
+			</div>
+		</section>
+
+		<section class="home-panel home-panel-content about-band" id="about" data-home-section="about">
+			<div class="container-wide panel-inner about-grid">
+				<div class="about-copy reveal">
+					<span class="eyebrow">About Us</span>
+					<h2>{about.mission}</h2>
+					<p>{about.intro}</p>
+					<p>{about.vision}</p>
+				</div>
+				<ul class="about-stats reveal reveal-delay-1">
+					{
+						about.stats.map((stat) => (
+							<li>
+								<strong>{stat.value}</strong>
+								<span>{stat.label}</span>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</section>
+
+		<section class="home-panel home-panel-content" id="careers" data-home-section="careers">
+			<div class="container-wide panel-inner careers-grid">
+				<div class="reveal">
+					<div class="section-head">
+						<span class="eyebrow">Careers</span>
+						<h2>{careers.headline}</h2>
+						<p>{careers.intro}</p>
+					</div>
+					<a class="btn btn-primary" href={careers.cta.href} target="_blank" rel="noopener noreferrer">
+						{careers.cta.label}
+					</a>
+				</div>
+				<div class="role-grid reveal reveal-delay-1">
+					{
+						careers.categories.map((role) => (
+							<article>
+								<h3>{role.title}</h3>
+								<p>{role.text}</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="home-panel home-panel-content" id="news" data-home-section="news">
+			<div class="container-wide panel-inner">
+				<div class="section-head reveal">
+					<span class="eyebrow">News</span>
+					<h2>新闻动态</h2>
+					<p>关注公司动态、技术进展与招聘资讯。</p>
+				</div>
+				<NewsList items={news.slice(0, 3)} />
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	.home-panels {
+		position: relative;
+	}
+
+	.home-panel {
+		height: 100svh;
+		height: 100dvh;
+		min-height: 100svh;
+		min-height: 100dvh;
+		max-height: 100svh;
+		max-height: 100dvh;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+
+	.home-panel-content {
+		display: flex;
+		align-items: center;
+		padding-block: 4.5rem 1.5rem;
+	}
+
+	.panel-inner {
+		width: min(1180px, calc(100% - 2.5rem));
+		margin-inline: auto;
+		max-height: 100%;
+		overflow: auto;
+		scrollbar-width: thin;
+	}
+
+	.about-band {
+		background: color-mix(in srgb, var(--mh-surface-2) 88%, transparent);
+		border-block: 1px solid var(--mh-line);
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1.3fr 1fr;
+		gap: clamp(1.5rem, 5vw, 3.5rem);
+		align-items: center;
+	}
+
+	.about-copy .eyebrow {
+		display: inline-block;
+		margin-bottom: 0.65rem;
+		font-family: var(--mh-font-display);
+		font-size: 0.75rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--mh-accent);
+	}
+
+	.about-copy h2 {
+		margin: 0 0 1rem;
+		font-family: var(--mh-font-display);
+		font-size: clamp(1.8rem, 4vw, 2.6rem);
+		line-height: 1.2;
+	}
+
+	.about-copy p {
+		margin: 0 0 1rem;
+		color: var(--mh-muted);
+		line-height: 1.75;
+		max-width: 36rem;
+	}
+
+	.about-stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.about-stats li {
+		padding: 1.25rem 1.1rem;
+		border-top: 2px solid var(--mh-accent);
+		background: color-mix(in srgb, var(--mh-paper-elevated) 80%, transparent);
+	}
+
+	.about-stats strong {
+		display: block;
+		margin-bottom: 0.35rem;
+		font-family: var(--mh-font-display);
+		font-size: clamp(1.6rem, 3vw, 2rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+	}
+
+	.about-stats span {
+		color: var(--mh-muted);
+		font-size: 0.92rem;
+	}
+
+	.careers-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		gap: clamp(1.75rem, 5vw, 3.25rem);
+		align-items: center;
+	}
+
+	.role-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.role-grid article {
+		padding: 1.25rem 1.1rem;
+		border-top: 2px solid var(--mh-accent);
+		background: color-mix(in srgb, var(--mh-paper-elevated) 85%, transparent);
+	}
+
+	.role-grid h3 {
+		margin: 0 0 0.5rem;
+		font-family: var(--mh-font-display);
+		font-size: 1.05rem;
+	}
+
+	.role-grid p {
+		margin: 0;
+		color: var(--mh-muted);
+		line-height: 1.65;
+		font-size: 0.95rem;
+	}
+
+	@media (max-width: 900px) {
+		.about-grid,
+		.careers-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.role-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.panel-inner {
+			width: min(100% - 1.5rem, 1180px);
+		}
+	}
+</style>

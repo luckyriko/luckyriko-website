@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="页面未找到" description="您访问的页面不存在。">
+	<section class="section not-found">
+		<div class="container-wide">
+			<p class="code">404</p>
+			<h1>页面未找到</h1>
+			<p>链接可能已失效，或页面已被移动。</p>
+			<a class="btn btn-primary" href="/">返回首页</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.not-found {
+		min-height: 60svh;
+		display: grid;
+		align-content: center;
+	}
+
+	.code {
+		margin: 0 0 0.5rem;
+		font-family: var(--mh-font-display);
+		font-size: clamp(3rem, 10vw, 5rem);
+		font-weight: 700;
+		letter-spacing: -0.04em;
+		color: var(--mh-accent);
+		line-height: 1;
+	}
+
+	h1 {
+		margin: 0 0 0.75rem;
+		font-family: var(--mh-font-display);
+		font-size: clamp(1.6rem, 4vw, 2.2rem);
+	}
+
+	p {
+		margin: 0 0 1.5rem;
+		color: var(--mh-muted);
+	}
+</style>

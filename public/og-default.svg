@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#070B14"/>
+  <circle cx="980" cy="120" r="220" fill="#1F7AEF" opacity="0.18"/>
+  <circle cx="180" cy="520" r="260" fill="#4AA3FF" opacity="0.12"/>
+  <text x="96" y="290" fill="#F5F8FF" font-family="Segoe UI, Arial, sans-serif" font-size="120" font-weight="700">miHoYo</text>
+  <text x="100" y="360" fill="#8EC2FF" font-family="Segoe UI, Arial, sans-serif" font-size="36" letter-spacing="8">TECH OTAKUS SAVE THE WORLD</text>
+  <text x="100" y="430" fill="#C5D0E2" font-family="Segoe UI, Arial, sans-serif" font-size="28">米哈游 · 企业官网演示</text>
+</svg>

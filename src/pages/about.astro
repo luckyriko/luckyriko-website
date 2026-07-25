@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { about } from '../data/about';
+---
+
+<BaseLayout
+	title="了解我们"
+	description="认识米哈游：技术宅拯救世界。了解公司使命、发展历程与价值观。"
+>
+	<PageHero
+		eyebrow="About Us"
+		title="了解我们"
+		description={about.missionEn}
+		image="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1800&q=80"
+	/>
+
+	<section class="section">
+		<div class="container-wide intro-grid">
+			<div class="reveal">
+				<div class="section-head">
+					<span class="eyebrow">Mission</span>
+					<h2>{about.mission}</h2>
+					<p>{about.intro}</p>
+				</div>
+				<p class="lead">{about.vision}</p>
+				<p class="lead">{about.hq}</p>
+			</div>
+			<ul class="value-list reveal reveal-delay-1">
+				{
+					about.values.map((value) => (
+						<li>
+							<h3>{value.title}</h3>
+							<p>{value.text}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section timeline-band">
+		<div class="container-wide">
+			<div class="section-head reveal">
+				<span class="eyebrow">History</span>
+				<h2>发展历程</h2>
+				<p>从一间工作室到全球化内容公司的关键足迹。</p>
+			</div>
+			<ol class="timeline">
+				{
+					about.timeline.map((item) => (
+						<li class="reveal">
+							<span class="year">{item.year}</span>
+							<div>
+								<h3>{item.title}</h3>
+								<p>{item.text}</p>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.intro-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 1fr;
+		gap: clamp(1.5rem, 5vw, 3rem);
+		align-items: start;
+	}
+
+	.lead {
+		margin: 0 0 1rem;
+		color: var(--mh-muted);
+		line-height: 1.75;
+		max-width: 38rem;
+	}
+
+	.value-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 1rem;
+	}
+
+	.value-list li {
+		padding: 1.15rem 0;
+		border-top: 1px solid var(--mh-line);
+	}
+
+	.value-list h3 {
+		margin: 0 0 0.45rem;
+		font-family: var(--mh-font-display);
+		font-size: 1.15rem;
+	}
+
+	.value-list p {
+		margin: 0;
+		color: var(--mh-muted);
+		line-height: 1.65;
+	}
+
+	.timeline-band {
+		background: color-mix(in srgb, var(--mh-surface-2) 88%, transparent);
+		border-block: 1px solid var(--mh-line);
+	}
+
+	.timeline {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0;
+	}
+
+	.timeline li {
+		display: grid;
+		grid-template-columns: 6.5rem 1fr;
+		gap: 1.25rem;
+		padding-block: 1.35rem;
+		border-bottom: 1px solid var(--mh-line);
+	}
+
+	.year {
+		font-family: var(--mh-font-display);
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--mh-accent);
+	}
+
+	.timeline h3 {
+		margin: 0 0 0.35rem;
+		font-family: var(--mh-font-display);
+		font-size: 1.15rem;
+	}
+
+	.timeline p {
+		margin: 0;
+		color: var(--mh-muted);
+		line-height: 1.65;
+	}
+
+	@media (max-width: 860px) {
+		.intro-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.timeline li {
+			grid-template-columns: 1fr;
+			gap: 0.35rem;
+		}
+	}
+</style>

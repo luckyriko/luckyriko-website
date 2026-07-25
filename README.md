@@ -1,43 +1,47 @@
-# Astro Starter Kit: Minimal
+# 米哈游企业官网演示
+
+基于 [Astro 7](https://astro.build) + [Pico CSS 2](https://picocss.com) + pnpm 的企业官网示例，结构参考 [mihoyo.com](https://www.mihoyo.com/)，精简视频与复杂动效，保留全屏主视觉与响应式布局。
+
+> 本项目为学习演示，非米哈游官方网站。
+
+## 功能
+
+- 组件化页面：首页 / 产品信息 / 了解我们 / 加入我们 / 新闻动态
+- SEO：语义化结构、meta / Open Graph、canonical
+- 响应式：桌面与移动端适配，移动端折叠导航
+- 深浅色主题：跟随系统偏好，支持手动切换并本地记忆
+
+## 开始
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+后台开发服务：
 
-## 🚀 Project Structure
+```sh
+pnpm astro dev --background
+pnpm astro dev status
+pnpm astro dev logs
+pnpm astro dev stop
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+| 命令 | 说明 |
+| :--- | :--- |
+| `pnpm install` | 安装依赖 |
+| `pnpm dev` | 本地开发 `localhost:4321` |
+| `pnpm build` | 生产构建 |
+| `pnpm preview` | 预览构建结果 |
+
+## 结构
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/   # Header、Hero、ProductGrid 等
+├── data/         # 站点与内容数据
+├── layouts/      # BaseLayout
+├── pages/        # 路由页面
+├── scripts/      # 主题 / 导航 / 入场动效
+└── styles/       # 全局品牌样式
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

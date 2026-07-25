@@ -1,0 +1,410 @@
+---
+import type { Product } from '../data/products';
+
+interface Props {
+	products: Product[];
+}
+
+const { products } = Astro.props;
+---
+
+<div class="product-carousel reveal" data-product-carousel tabindex="0">
+	<div class="carousel-viewport">
+		<ul class="carousel-track" data-carousel-track>
+			{
+				products.map((product, index) => (
+					<li
+						class:list={['carousel-slide', { 'is-active': index === 0 }]}
+						data-carousel-slide
+						aria-hidden={index === 0 ? 'false' : 'true'}
+					>
+						<figure class="slide-visual">
+							<img
+								src={product.image}
+								alt={`${product.name} 视觉`}
+								width="1600"
+								height="900"
+								loading={index === 0 ? 'eager' : 'lazy'}
+								decoding="async"
+								fetchpriority={index === 0 ? 'high' : 'auto'}
+							/>
+							<div class="slide-shade" style={`--accent: ${product.accent}`}></div>
+						</figure>
+						<div class="slide-copy">
+							<p class="slide-meta">
+								{product.year} · {product.category}
+							</p>
+							<h3>
+								<span class="name-zh">{product.name}</span>
+								<span class="name-en">{product.nameEn}</span>
+							</h3>
+							<p class="slide-tagline">{product.tagline}</p>
+							<a
+								class="btn btn-primary"
+								href={product.url ?? '/products'}
+								target={product.url ? '_blank' : undefined}
+								rel={product.url ? 'noopener noreferrer' : undefined}
+								tabindex={index === 0 ? 0 : -1}
+							>
+								了解更多
+							</a>
+						</div>
+					</li>
+				))
+			}
+		</ul>
+
+		<button type="button" class="carousel-nav prev" data-carousel-prev aria-label="上一款产品">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path d="M15 18l-6-6 6-6"></path>
+			</svg>
+		</button>
+
+		<button type="button" class="carousel-nav next" data-carousel-next aria-label="下一款产品">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path d="M9 18l6-6-6-6"></path>
+			</svg>
+		</button>
+	</div>
+
+	<div class="carousel-footer">
+		<div class="carousel-dots" role="tablist" aria-label="产品切换">
+			{
+				products.map((product, index) => (
+					<button
+						type="button"
+						class:list={['dot', { 'is-active': index === 0 }]}
+						role="tab"
+						aria-selected={index === 0 ? 'true' : 'false'}
+						aria-label={`切换到 ${product.name}`}
+						data-carousel-dot
+						data-index={index}
+					></button>
+				))
+			}
+		</div>
+		<div class="carousel-actions">
+			<a class="btn btn-ghost" href="/products">查看全部产品</a>
+		</div>
+	</div>
+
+	<p class="carousel-status visually-hidden" data-carousel-status aria-live="polite">
+		当前产品：{products[0]?.name}
+	</p>
+</div>
+
+<script>
+	function initProductCarousels() {
+		const roots = document.querySelectorAll<HTMLElement>('[data-product-carousel]');
+
+		roots.forEach((root) => {
+			if (root.dataset.ready === 'true') return;
+			root.dataset.ready = 'true';
+
+			const slides = [...root.querySelectorAll<HTMLElement>('[data-carousel-slide]')];
+			const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]')];
+			const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+			const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+			const status = root.querySelector<HTMLElement>('[data-carousel-status]');
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (!slides.length) return;
+
+			let index = 0;
+			let timer: number | undefined;
+
+			const goTo = (nextIndex: number) => {
+				index = (nextIndex + slides.length) % slides.length;
+
+				slides.forEach((slide, i) => {
+					const active = i === index;
+					slide.classList.toggle('is-active', active);
+					slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+					slide.querySelectorAll('a').forEach((link) => {
+						link.tabIndex = active ? 0 : -1;
+					});
+				});
+
+				dots.forEach((dot, i) => {
+					const active = i === index;
+					dot.classList.toggle('is-active', active);
+					dot.setAttribute('aria-selected', active ? 'true' : 'false');
+				});
+
+				const title = slides[index]?.querySelector('.name-zh')?.textContent?.trim();
+				if (status && title) status.textContent = `当前产品：${title}`;
+			};
+
+			const stop = () => {
+				if (timer) window.clearInterval(timer);
+				timer = undefined;
+			};
+
+			const start = () => {
+				if (reduceMotion || slides.length < 2) return;
+				stop();
+				timer = window.setInterval(() => goTo(index + 1), 5500);
+			};
+
+			prev?.addEventListener('click', () => {
+				goTo(index - 1);
+				start();
+			});
+
+			next?.addEventListener('click', () => {
+				goTo(index + 1);
+				start();
+			});
+
+			dots.forEach((dot) => {
+				dot.addEventListener('click', () => {
+					const i = Number(dot.dataset.index);
+					if (!Number.isNaN(i)) {
+						goTo(i);
+						start();
+					}
+				});
+			});
+
+			root.addEventListener('mouseenter', stop);
+			root.addEventListener('mouseleave', start);
+			root.addEventListener('focusin', stop);
+			root.addEventListener('focusout', (event) => {
+				if (!root.contains(event.relatedTarget as Node | null)) start();
+			});
+
+			root.addEventListener('keydown', (event) => {
+				if (event.key === 'ArrowLeft') {
+					event.preventDefault();
+					goTo(index - 1);
+					start();
+				}
+				if (event.key === 'ArrowRight') {
+					event.preventDefault();
+					goTo(index + 1);
+					start();
+				}
+			});
+
+			goTo(0);
+			start();
+		});
+	}
+
+	initProductCarousels();
+	document.addEventListener('astro:page-load', initProductCarousels);
+</script>
+
+<style>
+	.product-carousel {
+		position: relative;
+		outline: none;
+	}
+
+	.carousel-viewport {
+		position: relative;
+		overflow: hidden;
+		background: var(--mh-surface-2);
+	}
+
+	.carousel-track {
+		position: relative;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		aspect-ratio: 21 / 10;
+		min-height: 320px;
+	}
+
+	.carousel-slide {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.55s var(--mh-ease),
+			visibility 0.55s var(--mh-ease);
+		pointer-events: none;
+	}
+
+	.carousel-slide.is-active {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		z-index: 1;
+	}
+
+	.slide-visual {
+		position: absolute;
+		inset: 0;
+		margin: 0;
+	}
+
+	.slide-visual img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.slide-shade {
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(90deg, color-mix(in srgb, #05080f 78%, transparent) 0%, color-mix(in srgb, #05080f 35%, transparent) 48%, transparent 72%),
+			linear-gradient(180deg, transparent 35%, color-mix(in srgb, #05080f 82%, var(--accent)) 100%);
+		pointer-events: none;
+	}
+
+	.slide-copy {
+		position: absolute;
+		inset: auto 0 0 0;
+		z-index: 2;
+		padding: clamp(1.25rem, 4vw, 2.75rem);
+		padding-left: clamp(4rem, 8vw, 5.5rem);
+		max-width: min(36rem, 92%);
+		color: #f5f8ff;
+	}
+
+	.slide-meta {
+		margin: 0 0 0.55rem;
+		font-size: 0.82rem;
+		letter-spacing: 0.04em;
+		color: color-mix(in srgb, #fff 72%, transparent);
+	}
+
+	.slide-copy h3 {
+		margin: 0 0 0.55rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.45rem 0.85rem;
+		font-size: clamp(1.45rem, 3.2vw, 2.15rem);
+		line-height: 1.2;
+	}
+
+	.name-zh {
+		font-family: var(--mh-font-display);
+		font-weight: 700;
+	}
+
+	.name-en {
+		font-family: var(--mh-font-display);
+		font-size: 0.85rem;
+		font-weight: 500;
+		letter-spacing: 0.05em;
+		color: color-mix(in srgb, #fff 70%, transparent);
+	}
+
+	.slide-tagline {
+		margin: 0 0 1.15rem;
+		color: color-mix(in srgb, #fff 82%, transparent);
+		line-height: 1.65;
+		font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+	}
+
+	.carousel-nav {
+		position: absolute;
+		top: 50%;
+		z-index: 3;
+		display: inline-grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0;
+		border: 1px solid color-mix(in srgb, #fff 35%, transparent);
+		border-radius: 999px;
+		background: color-mix(in srgb, #05080f 42%, transparent);
+		color: #f5f8ff;
+		cursor: pointer;
+		transform: translateY(-50%);
+		backdrop-filter: blur(8px);
+		transition:
+			border-color 0.25s var(--mh-ease),
+			background 0.25s var(--mh-ease),
+			color 0.25s var(--mh-ease);
+	}
+
+	.carousel-nav.prev {
+		left: clamp(0.65rem, 2vw, 1.25rem);
+	}
+
+	.carousel-nav.next {
+		right: clamp(0.65rem, 2vw, 1.25rem);
+	}
+
+	.carousel-nav:hover {
+		border-color: color-mix(in srgb, #fff 70%, transparent);
+		background: color-mix(in srgb, #05080f 58%, transparent);
+		color: #fff;
+	}
+
+	.carousel-footer {
+		display: grid;
+		gap: 0.85rem;
+		margin-top: 1rem;
+	}
+
+	.carousel-dots {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.55rem;
+	}
+
+	.carousel-actions {
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	.dot {
+		width: 0.55rem;
+		height: 0.55rem;
+		padding: 0;
+		border: 0;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--mh-text) 28%, transparent);
+		cursor: pointer;
+		transition:
+			background 0.25s var(--mh-ease),
+			width 0.25s var(--mh-ease);
+	}
+
+	.dot.is-active {
+		width: 1.35rem;
+		background: var(--mh-accent);
+	}
+
+	.dot:hover {
+		background: var(--mh-accent-soft);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.carousel-slide {
+			transition: none;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.carousel-track {
+			aspect-ratio: 4 / 5;
+			min-height: 420px;
+		}
+
+		.slide-shade {
+			background:
+				linear-gradient(180deg, transparent 28%, color-mix(in srgb, #05080f 88%, var(--accent)) 100%);
+		}
+
+		.slide-copy {
+			max-width: none;
+			padding: 1.25rem 1rem 1.35rem;
+			padding-left: 3.5rem;
+		}
+
+		.carousel-nav {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+	}
+</style>

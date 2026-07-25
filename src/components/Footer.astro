@@ -1,0 +1,137 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container-wide footer-grid">
+		<div class="footer-brand">
+			<p class="footer-name">{site.name} {site.nameEn}</p>
+			<p class="footer-slogan">{site.slogan}</p>
+			<p class="footer-desc">{site.description}</p>
+		</div>
+
+		<div class="footer-col">
+			<p class="footer-label">导航</p>
+			<ul>
+				{site.footerLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+			</ul>
+		</div>
+
+		<div class="footer-col">
+			<p class="footer-label">相关链接</p>
+			<ul>
+				{
+					site.social.map((link) => (
+						<li>
+							<a href={link.href} target="_blank" rel="noopener noreferrer">
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+
+	<div class="container-wide footer-bottom">
+		<p>© {year} {site.nameEn}. 本站为学习演示站点，非官方网站。</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		padding-block: 3.5rem 1.75rem;
+		border-top: 1px solid var(--mh-line);
+		background: color-mix(in srgb, var(--mh-surface-2) 80%, transparent);
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr 1fr;
+		gap: 2rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.footer-name {
+		margin: 0 0 0.35rem;
+		font-family: var(--mh-font-display);
+		font-size: 1.15rem;
+		font-weight: 700;
+	}
+
+	.footer-slogan {
+		margin: 0 0 1rem;
+		font-family: var(--mh-font-display);
+		font-size: 0.72rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--mh-accent);
+	}
+
+	.footer-desc {
+		margin: 0;
+		max-width: 28rem;
+		color: var(--mh-muted);
+		font-size: 0.95rem;
+		line-height: 1.7;
+	}
+
+	.footer-label {
+		margin: 0 0 0.85rem;
+		font-family: var(--mh-font-display);
+		font-size: 0.78rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--mh-muted);
+	}
+
+	.footer-col ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.footer-col li + li {
+		margin-top: 0.55rem;
+	}
+
+	.footer-col a {
+		color: var(--mh-text);
+		opacity: 0.85;
+		transition: opacity 0.2s var(--mh-ease);
+	}
+
+	.footer-col a:hover {
+		opacity: 1;
+		color: var(--mh-accent);
+	}
+
+	.footer-bottom {
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--mh-line);
+	}
+
+	.footer-bottom p {
+		margin: 0;
+		color: var(--mh-muted);
+		font-size: 0.85rem;
+	}
+
+	@media (max-width: 800px) {
+		.footer-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.footer-brand {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.footer-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
