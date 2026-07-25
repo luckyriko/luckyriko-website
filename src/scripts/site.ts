@@ -164,16 +164,6 @@ function initHomePanels() {
 			}
 			if (Math.abs(event.deltaY) < 6) return;
 
-			const current = sections[index];
-			const scroller = current?.querySelector<HTMLElement>('.panel-inner');
-			if (scroller && scroller.scrollHeight > scroller.clientHeight + 4) {
-				const atTop = scroller.scrollTop <= 0;
-				const atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
-				if ((event.deltaY > 0 && !atBottom) || (event.deltaY < 0 && !atTop)) {
-					return;
-				}
-			}
-
 			// 最后一屏继续下滚：交给页面滚到页脚
 			if (index === sections.length - 1 && event.deltaY > 0) return;
 			if (index === 0 && event.deltaY < 0) return;

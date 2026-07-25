@@ -17,23 +17,54 @@ import { site } from '../data/site';
 		</section>
 
 		<section class="home-panel home-panel-content" id="products" data-home-section="products">
-			<div class="container-wide panel-inner">
-				<div class="section-head reveal">
+			<div class="panel-inner">
+				<div class="section-head section-head-compact reveal">
 					<span class="eyebrow">Our Products</span>
-					<h2>产品信息</h2>
+					<h2>
+						<a class="section-title-link" href="/products">
+							产品信息
+							<span class="title-arrow" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+									<path
+										d="M5 12h12.5M13 6l6 6-6 6"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</svg>
+							</span>
+						</a>
+					</h2>
 					<p>以原创 IP 为核心，持续打造高品质互动内容与多元文化产品。</p>
 				</div>
-				<ProductCarousel products={products} />
+				<div class="panel-body">
+					<ProductCarousel products={products} fill />
+				</div>
 			</div>
 		</section>
 
 		<section class="home-panel home-panel-content about-band" id="about" data-home-section="about">
-			<div class="container-wide panel-inner about-grid">
+			<div class="panel-inner about-grid">
 				<div class="about-copy reveal">
 					<span class="eyebrow">About Us</span>
-					<h2>{about.mission}</h2>
+					<h2>
+						<a class="section-title-link" href="/about">
+							了解我们
+							<span class="title-arrow" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+									<path
+										d="M5 12h12.5M13 6l6 6-6 6"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</svg>
+							</span>
+						</a>
+					</h2>
 					<p>{about.intro}</p>
-					<p>{about.vision}</p>
 				</div>
 				<ul class="about-stats reveal reveal-delay-1">
 					{
@@ -49,12 +80,27 @@ import { site } from '../data/site';
 		</section>
 
 		<section class="home-panel home-panel-content" id="careers" data-home-section="careers">
-			<div class="container-wide panel-inner careers-grid">
+			<div class="panel-inner careers-grid">
 				<div class="reveal">
-					<div class="section-head">
+					<div class="section-head section-head-compact">
 						<span class="eyebrow">Careers</span>
-						<h2>{careers.headline}</h2>
-						<p>{careers.intro}</p>
+						<h2>
+							<a class="section-title-link" href="/careers">
+								{careers.headline}
+								<span class="title-arrow" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+									<path
+										d="M5 12h12.5M13 6l6 6-6 6"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</svg>
+							</span>
+							</a>
+						</h2>
+						<p>{careers.subhead}</p>
 					</div>
 					<a class="btn btn-primary" href={careers.cta.href} target="_blank" rel="noopener noreferrer">
 						{careers.cta.label}
@@ -74,13 +120,30 @@ import { site } from '../data/site';
 		</section>
 
 		<section class="home-panel home-panel-content" id="news" data-home-section="news">
-			<div class="container-wide panel-inner">
-				<div class="section-head reveal">
+			<div class="panel-inner">
+				<div class="section-head section-head-compact reveal">
 					<span class="eyebrow">News</span>
-					<h2>新闻动态</h2>
+					<h2>
+						<a class="section-title-link" href="/news">
+							新闻动态
+							<span class="title-arrow" aria-hidden="true">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+									<path
+										d="M5 12h12.5M13 6l6 6-6 6"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</svg>
+							</span>
+						</a>
+					</h2>
 					<p>关注公司动态、技术进展与招聘资讯。</p>
 				</div>
-				<NewsList items={news.slice(0, 3)} />
+				<div class="panel-body">
+					<NewsList items={news.slice(0, 3)} compact />
+				</div>
 			</div>
 		</section>
 	</div>
@@ -92,11 +155,9 @@ import { site } from '../data/site';
 	}
 
 	.home-panel {
-		height: 100svh;
+		height: 100vh;
 		height: 100dvh;
-		min-height: 100svh;
-		min-height: 100dvh;
-		max-height: 100svh;
+		max-height: 100vh;
 		max-height: 100dvh;
 		box-sizing: border-box;
 		overflow: hidden;
@@ -104,16 +165,97 @@ import { site } from '../data/site';
 
 	.home-panel-content {
 		display: flex;
-		align-items: center;
-		padding-block: 4.5rem 1.5rem;
+		align-items: stretch;
+		padding: 4.25rem 0 1rem;
 	}
 
 	.panel-inner {
+		display: flex;
+		flex-direction: column;
 		width: min(1180px, calc(100% - 2.5rem));
+		height: 100%;
+		min-height: 0;
 		margin-inline: auto;
-		max-height: 100%;
-		overflow: auto;
-		scrollbar-width: thin;
+		overflow: hidden;
+	}
+
+	.panel-body {
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.panel-body :global(.product-carousel),
+	.panel-body :global(.news-list) {
+		flex: 1 1 auto;
+		min-height: 0;
+		height: 100%;
+	}
+
+	.section-head-compact {
+		flex-shrink: 0;
+		margin-bottom: 0.85rem;
+		max-width: 40rem;
+	}
+
+	.section-title-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.25s var(--mh-ease);
+	}
+
+	.section-title-link:hover {
+		color: var(--mh-accent);
+	}
+
+	.title-arrow {
+		display: inline-grid;
+		place-items: center;
+		width: 1.55rem;
+		height: 1.55rem;
+		border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+		border-radius: 999px;
+		color: var(--mh-accent);
+		line-height: 0;
+		transition:
+			transform 0.25s var(--mh-ease),
+			border-color 0.25s var(--mh-ease),
+			background 0.25s var(--mh-ease);
+	}
+
+	.title-arrow svg {
+		display: block;
+		width: 0.85rem;
+		height: 0.85rem;
+	}
+
+	.section-title-link:hover .title-arrow {
+		transform: translateX(3px);
+		border-color: var(--mh-accent);
+		background: color-mix(in srgb, var(--mh-accent) 10%, transparent);
+	}
+
+	.section-head-compact .eyebrow {
+		margin-bottom: 0.35rem;
+	}
+
+	.section-head-compact h2 {
+		margin-bottom: 0.35rem;
+		font-size: clamp(1.45rem, 2.8vw, 2rem);
+	}
+
+	.section-head-compact p {
+		font-size: 0.95rem;
+		line-height: 1.55;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	.about-band {
@@ -124,13 +266,13 @@ import { site } from '../data/site';
 	.about-grid {
 		display: grid;
 		grid-template-columns: 1.3fr 1fr;
-		gap: clamp(1.5rem, 5vw, 3.5rem);
+		gap: clamp(1.25rem, 4vw, 2.5rem);
 		align-items: center;
 	}
 
 	.about-copy .eyebrow {
 		display: inline-block;
-		margin-bottom: 0.65rem;
+		margin-bottom: 0.5rem;
 		font-family: var(--mh-font-display);
 		font-size: 0.75rem;
 		letter-spacing: 0.18em;
@@ -139,94 +281,119 @@ import { site } from '../data/site';
 	}
 
 	.about-copy h2 {
-		margin: 0 0 1rem;
+		margin: 0 0 0.75rem;
 		font-family: var(--mh-font-display);
-		font-size: clamp(1.8rem, 4vw, 2.6rem);
+		font-size: clamp(1.6rem, 3.5vw, 2.3rem);
 		line-height: 1.2;
 	}
 
+	.about-copy .section-title-link {
+		font-family: inherit;
+	}
+
 	.about-copy p {
-		margin: 0 0 1rem;
+		margin: 0;
 		color: var(--mh-muted);
-		line-height: 1.75;
+		line-height: 1.65;
 		max-width: 36rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 5;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	.about-stats {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
+		gap: 0.85rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
 	.about-stats li {
-		padding: 1.25rem 1.1rem;
+		padding: 1rem 0.95rem;
 		border-top: 2px solid var(--mh-accent);
 		background: color-mix(in srgb, var(--mh-paper-elevated) 80%, transparent);
 	}
 
 	.about-stats strong {
 		display: block;
-		margin-bottom: 0.35rem;
+		margin-bottom: 0.3rem;
 		font-family: var(--mh-font-display);
-		font-size: clamp(1.6rem, 3vw, 2rem);
+		font-size: clamp(1.4rem, 2.8vw, 1.85rem);
 		font-weight: 700;
 		letter-spacing: -0.02em;
 	}
 
 	.about-stats span {
 		color: var(--mh-muted);
-		font-size: 0.92rem;
+		font-size: 0.9rem;
 	}
 
 	.careers-grid {
 		display: grid;
 		grid-template-columns: 1fr 1.1fr;
-		gap: clamp(1.75rem, 5vw, 3.25rem);
+		gap: clamp(1.25rem, 4vw, 2.5rem);
 		align-items: center;
 	}
 
 	.role-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
+		gap: 0.85rem;
 	}
 
 	.role-grid article {
-		padding: 1.25rem 1.1rem;
+		padding: 1rem 0.95rem;
 		border-top: 2px solid var(--mh-accent);
 		background: color-mix(in srgb, var(--mh-paper-elevated) 85%, transparent);
 	}
 
 	.role-grid h3 {
-		margin: 0 0 0.5rem;
+		margin: 0 0 0.4rem;
 		font-family: var(--mh-font-display);
-		font-size: 1.05rem;
+		font-size: 1rem;
 	}
 
 	.role-grid p {
 		margin: 0;
 		color: var(--mh-muted);
-		line-height: 1.65;
-		font-size: 0.95rem;
+		line-height: 1.55;
+		font-size: 0.9rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	@media (max-width: 900px) {
 		.about-grid,
 		.careers-grid {
 			grid-template-columns: 1fr;
+			align-content: center;
 		}
 
 		.role-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.about-copy p {
+			-webkit-line-clamp: 3;
 		}
 	}
 
 	@media (max-width: 720px) {
 		.panel-inner {
 			width: min(100% - 1.5rem, 1180px);
+		}
+
+		.role-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.home-panel-content {
+			padding: 4rem 0 0.75rem;
 		}
 	}
 </style>
