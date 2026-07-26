@@ -1,8 +1,6 @@
-# 幸运理子企业官网演示
+# 幸运理子企业官网
 
-基于 [Astro 7](https://astro.build) + [Pico CSS 2](https://picocss.com) + pnpm 的企业官网示例，具有移动端兼容、响应式布局、暗黑模式。
-
-> 本项目为学习演示，非幸运理子官方网站。
+基于 [Astro 7](https://astro.build) + [Pico CSS 2](https://picocss.com) 的企业官网示例，具有移动端兼容、响应式布局、暗黑模式。
 
 ## 功能
 
