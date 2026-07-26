@@ -1,117 +1,122 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import { careers } from '../data/careers';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { careers } from "../data/careers";
 ---
 
 <BaseLayout
-	title="加入我们"
-	description="加入米哈游，与技术宅一起用创造力改变世界。开放校招、社招与实习岗位。"
+  title="加入我们"
+  description="加入幸运理子，与技术宅一起用创造力改变世界。开放校招、社招与实习岗位。"
 >
-	<PageHero
-		eyebrow="Careers"
-		title={careers.headline}
-		description={careers.subhead}
-		image="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80"
-	/>
+  <PageHero
+    eyebrow="Careers"
+    title={careers.headline}
+    description={careers.subhead}
+    image="/images/careers.jfif"
+  />
 
-	<section class="section">
-		<div class="container-wide careers-grid">
-			<div class="reveal">
-				<div class="section-head">
-					<span class="eyebrow">Join Us</span>
-					<h2>在这里创造可能</h2>
-					<p>{careers.intro}</p>
-				</div>
-				<ul class="perk-list">
-					{careers.perks.map((perk) => <li>{perk}</li>)}
-				</ul>
-				<a class="btn btn-primary" href={careers.cta.href} target="_blank" rel="noopener noreferrer">
-					{careers.cta.label}
-				</a>
-			</div>
+  <section class="section">
+    <div class="container-wide careers-grid">
+      <div class="reveal">
+        <div class="section-head">
+          <span class="eyebrow">Join Us</span>
+          <h2>在这里创造可能</h2>
+          <p>{careers.intro}</p>
+        </div>
+        <ul class="perk-list">
+          {careers.perks.map((perk) => <li>{perk}</li>)}
+        </ul>
+        <a
+          class="btn btn-primary"
+          href={careers.cta.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {careers.cta.label}
+        </a>
+      </div>
 
-			<div class="role-grid reveal reveal-delay-1">
-				{
-					careers.categories.map((role) => (
-						<article>
-							<h3>{role.title}</h3>
-							<p>{role.text}</p>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
+      <div class="role-grid reveal reveal-delay-1">
+        {
+          careers.categories.map((role) => (
+            <article>
+              <h3>{role.title}</h3>
+              <p>{role.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-	.careers-grid {
-		display: grid;
-		grid-template-columns: 1fr 1.1fr;
-		gap: clamp(1.75rem, 5vw, 3.25rem);
-		align-items: start;
-	}
+  .careers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(1.75rem, 5vw, 3.25rem);
+    align-items: start;
+  }
 
-	.perk-list {
-		margin: 0 0 1.5rem;
-		padding: 0;
-		list-style: none;
-		display: grid;
-		gap: 0.7rem;
-	}
+  .perk-list {
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+  }
 
-	.perk-list li {
-		position: relative;
-		padding-left: 1.15rem;
-		color: var(--mh-muted);
-		line-height: 1.6;
-	}
+  .perk-list li {
+    position: relative;
+    padding-left: 1.15rem;
+    color: var(--mh-muted);
+    line-height: 1.6;
+  }
 
-	.perk-list li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.55rem;
-		width: 0.45rem;
-		height: 0.45rem;
-		background: var(--mh-accent);
-	}
+  .perk-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    background: var(--mh-accent);
+  }
 
-	.role-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-	}
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
 
-	.role-grid article {
-		padding: 1.25rem 1.1rem;
-		border-top: 2px solid var(--mh-accent);
-		background: color-mix(in srgb, var(--mh-paper-elevated) 85%, transparent);
-	}
+  .role-grid article {
+    padding: 1.25rem 1.1rem;
+    border-top: 2px solid var(--mh-accent);
+    background: color-mix(in srgb, var(--mh-paper-elevated) 85%, transparent);
+  }
 
-	.role-grid h3 {
-		margin: 0 0 0.5rem;
-		font-family: var(--mh-font-display);
-		font-size: 1.05rem;
-	}
+  .role-grid h3 {
+    margin: 0 0 0.5rem;
+    font-family: var(--mh-font-display);
+    font-size: 1.05rem;
+  }
 
-	.role-grid p {
-		margin: 0;
-		color: var(--mh-muted);
-		line-height: 1.65;
-		font-size: 0.95rem;
-	}
+  .role-grid p {
+    margin: 0;
+    color: var(--mh-muted);
+    line-height: 1.65;
+    font-size: 0.95rem;
+  }
 
-	@media (max-width: 900px) {
-		.careers-grid {
-			grid-template-columns: 1fr;
-		}
-	}
+  @media (max-width: 900px) {
+    .careers-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 
-	@media (max-width: 560px) {
-		.role-grid {
-			grid-template-columns: 1fr;
-		}
-	}
+  @media (max-width: 560px) {
+    .role-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

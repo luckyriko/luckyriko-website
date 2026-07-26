@@ -1,0 +1,65 @@
+---
+interface Props {
+  id: string;
+  section: string;
+  /** 首屏等无需内容壳的区域 */
+  bare?: boolean;
+  class?: string;
+}
+
+const { id, section, bare = false, class: className } = Astro.props;
+---
+
+<section
+  class:list={["home-panel", { "home-panel-content": !bare }, className]}
+  id={id}
+  data-home-section={section}
+>
+  {
+    bare ? (
+      <slot />
+    ) : (
+      <div class="panel-inner">
+        <slot />
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .home-panel {
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .home-panel-content {
+    display: flex;
+    align-items: stretch;
+    padding: 4.25rem 0 1rem;
+  }
+
+  .panel-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(1180px, calc(100% - 2.5rem));
+    height: 100%;
+    min-height: 0;
+    margin-inline: auto;
+    overflow: hidden;
+  }
+
+  @media (max-width: 720px) {
+    .panel-inner {
+      width: min(100% - 1.5rem, 1180px);
+    }
+
+    .home-panel-content {
+      padding: 4rem 0 0.75rem;
+    }
+  }
+</style>

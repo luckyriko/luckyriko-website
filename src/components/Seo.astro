@@ -1,25 +1,25 @@
 ---
 interface Props {
-	title: string;
-	description?: string;
-	image?: string;
-	canonical?: string;
-	type?: 'website' | 'article';
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: "website" | "article";
 }
 
 const {
-	title,
-	description = '米哈游致力于为用户提供美好的、超出预期的产品与内容。',
-	image = '/og-default.svg',
-	canonical,
-	type = 'website',
+  title,
+  description = "幸运理子致力于为用户提供美好的、超出预期的产品与内容。",
+  image = "/favicon.svg",
+  canonical,
+  type = "website",
 } = Astro.props;
 
-const siteName = '米哈游 miHoYo';
+const siteName = "幸运理子 LuckyRiko";
 const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
 const canonicalURL = canonical
-	? new URL(canonical, Astro.site ?? Astro.url)
-	: new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+  ? new URL(canonical, Astro.site ?? Astro.url)
+  : new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const imageURL = new URL(image, Astro.site ?? Astro.url);
 ---
 
@@ -44,22 +44,37 @@ const imageURL = new URL(image, Astro.site ?? Astro.url);
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageURL} />
 
-<meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)" />
-<meta name="theme-color" content="#f3f6fb" media="(prefers-color-scheme: light)" />
+<meta
+  name="theme-color"
+  content="#070b14"
+  media="(prefers-color-scheme: dark)"
+/>
+<meta
+  name="theme-color"
+  content="#f3f6fb"
+  media="(prefers-color-scheme: light)"
+/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-	rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+  rel="stylesheet"
 />
 
 <script is:inline>
-	(() => {
-		const key = 'mh-theme';
-		const stored = localStorage.getItem(key);
-		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		const theme = stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
-		document.documentElement.setAttribute('data-theme', theme);
-	})();
+  (() => {
+    const key = "mh-theme";
+    const stored = localStorage.getItem(key);
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const theme =
+      stored === "light" || stored === "dark"
+        ? stored
+        : prefersDark
+          ? "dark"
+          : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
 </script>

@@ -1,8 +1,8 @@
-# 米哈游企业官网演示
+# 幸运理子企业官网演示
 
-基于 [Astro 7](https://astro.build) + [Pico CSS 2](https://picocss.com) + pnpm 的企业官网示例，结构参考 [mihoyo.com](https://www.mihoyo.com/)，精简视频与复杂动效，保留全屏主视觉与响应式布局。
+基于 [Astro 7](https://astro.build) + [Pico CSS 2](https://picocss.com) + pnpm 的企业官网示例，具有移动端兼容、响应式布局、暗黑模式。
 
-> 本项目为学习演示，非米哈游官方网站。
+> 本项目为学习演示，非幸运理子官方网站。
 
 ## 功能
 
@@ -18,7 +18,7 @@ pnpm install
 pnpm dev
 ```
 
-后台开发服务：
+开发服务：
 
 ```sh
 pnpm astro dev --background
@@ -27,12 +27,12 @@ pnpm astro dev logs
 pnpm astro dev stop
 ```
 
-| 命令 | 说明 |
-| :--- | :--- |
-| `pnpm install` | 安装依赖 |
-| `pnpm dev` | 本地开发 `localhost:4321` |
-| `pnpm build` | 生产构建 |
-| `pnpm preview` | 预览构建结果 |
+| 命令           | 说明                      |
+| :------------- | :------------------------ |
+| `pnpm install` | 安装依赖                  |
+| `pnpm dev`     | 本地开发 `localhost:4321` |
+| `pnpm build`   | 生产构建                  |
+| `pnpm preview` | 预览构建结果              |
 
 ## 结构
 

@@ -1,100 +1,100 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import ProductGrid from '../components/ProductGrid.astro';
-import { products } from '../data/products';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import ProductGrid from "../components/ProductGrid.astro";
+import { products } from "../data/products";
 ---
 
 <BaseLayout
-	title="产品信息"
-	description="了解米哈游旗下原创 IP 与高品质互动产品，包括原神、崩坏系列、绝区零等。"
+  title="产品信息"
+  description="了解幸运理子旗下原创 IP 与高品质互动产品，包括原神、崩坏系列、绝区零等。"
 >
-	<PageHero
-		eyebrow="Our Products"
-		title="产品信息"
-		description="以技术与创意为驱动，打造跨越游戏、动画、音乐与社区的内容矩阵。"
-		image="https://images.unsplash.com/photo-1534796636912-3b95b772ab17?auto=format&fit=crop&w=1800&q=80"
-	/>
+  <PageHero
+    eyebrow="Our Products"
+    title="产品信息"
+    description="以技术与创意为驱动，打造跨越游戏、动画、音乐与社区的内容矩阵。"
+    image="/images/products.jpg"
+  />
 
-	<section class="section">
-		<div class="container-wide">
-			<div class="section-head reveal">
-				<span class="eyebrow">Portfolio</span>
-				<h2>核心产品</h2>
-				<p>每一款作品都承载着我们的世界观与技术追求。</p>
-			</div>
-			<ProductGrid products={products} />
+  <section class="section">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <span class="eyebrow">Portfolio</span>
+        <h2>核心产品</h2>
+        <p>每一款作品都承载着我们的世界观与技术追求。</p>
+      </div>
+      <ProductGrid products={products} />
 
-			<div class="product-detail reveal">
-				{
-					products.map((product) => (
-						<article class="detail-row" id={product.id}>
-							<div>
-								<p class="meta">
-									{product.year} · {product.category}
-								</p>
-								<h3>
-									{product.name}
-									<span>{product.nameEn}</span>
-								</h3>
-							</div>
-							<p>{product.description}</p>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
+      <div class="product-detail reveal">
+        {
+          products.map((product) => (
+            <article class="detail-row" id={product.id}>
+              <div>
+                <p class="meta">
+                  {product.year} · {product.category}
+                </p>
+                <h3>
+                  {product.name}
+                  <span>{product.nameEn}</span>
+                </h3>
+              </div>
+              <p>{product.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-	.product-detail {
-		margin-top: 3.5rem;
-		display: grid;
-		gap: 0;
-		border-top: 1px solid var(--mh-line);
-	}
+  .product-detail {
+    margin-top: 3.5rem;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--mh-line);
+  }
 
-	.detail-row {
-		display: grid;
-		grid-template-columns: minmax(220px, 0.9fr) 1.2fr;
-		gap: 1.5rem;
-		padding-block: 1.5rem;
-		border-bottom: 1px solid var(--mh-line);
-	}
+  .detail-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.9fr) 1.2fr;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--mh-line);
+  }
 
-	.meta {
-		margin: 0 0 0.4rem;
-		color: var(--mh-muted);
-		font-size: 0.85rem;
-	}
+  .meta {
+    margin: 0 0 0.4rem;
+    color: var(--mh-muted);
+    font-size: 0.85rem;
+  }
 
-	h3 {
-		margin: 0;
-		font-family: var(--mh-font-display);
-		font-size: 1.25rem;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem 0.85rem;
-		align-items: baseline;
-	}
+  h3 {
+    margin: 0;
+    font-family: var(--mh-font-display);
+    font-size: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    align-items: baseline;
+  }
 
-	h3 span {
-		font-size: 0.85rem;
-		font-weight: 500;
-		color: var(--mh-muted);
-	}
+  h3 span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--mh-muted);
+  }
 
-	.detail-row > p {
-		margin: 0;
-		color: var(--mh-muted);
-		line-height: 1.75;
-	}
+  .detail-row > p {
+    margin: 0;
+    color: var(--mh-muted);
+    line-height: 1.75;
+  }
 
-	@media (max-width: 720px) {
-		.detail-row {
-			grid-template-columns: 1fr;
-			gap: 0.55rem;
-		}
-	}
+  @media (max-width: 720px) {
+    .detail-row {
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+  }
 </style>

@@ -1,24 +1,24 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHero from '../../components/PageHero.astro';
-import NewsList from '../../components/NewsList.astro';
-import { news } from '../../data/news';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import NewsList from "../../components/NewsList.astro";
+import { news } from "../../data/news";
 ---
 
 <BaseLayout
-	title="新闻动态"
-	description="浏览米哈游最新公司动态、技术进展、招聘与公益资讯。"
+  title="新闻动态"
+  description="浏览幸运理子最新公司动态、技术进展、招聘与公益资讯。"
 >
-	<PageHero
-		eyebrow="News"
-		title="新闻动态"
-		description="持续关注我们的进展与故事。"
-		image="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1800&q=80"
-	/>
+  <PageHero
+    eyebrow="News"
+    title="新闻动态"
+    description="持续关注我们的进展与故事。"
+    image="/images/news.jfif"
+  />
 
-	<section class="section">
-		<div class="container-wide">
-			<NewsList items={news} />
-		</div>
-	</section>
+  <section class="section">
+    <div class="container-wide">
+      <NewsList items={news} />
+    </div>
+  </section>
 </BaseLayout>

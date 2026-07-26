@@ -1,0 +1,47 @@
+---
+import SectionTitleLink from './SectionTitleLink.astro';
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	href: string;
+	description?: string;
+	compact?: boolean;
+}
+
+const { eyebrow, title, href, description, compact = true } = Astro.props;
+---
+
+<div class:list={['section-head', { 'section-head-compact': compact }, 'reveal']}>
+	<span class="eyebrow">{eyebrow}</span>
+	<h2>
+		<SectionTitleLink href={href} label={title} />
+	</h2>
+	{description && <p>{description}</p>}
+</div>
+
+<style>
+	.section-head-compact {
+		flex-shrink: 0;
+		margin-bottom: 0.85rem;
+		max-width: 40rem;
+	}
+
+	.section-head-compact .eyebrow {
+		margin-bottom: 0.35rem;
+	}
+
+	.section-head-compact h2 {
+		margin-bottom: 0.35rem;
+		font-size: clamp(1.45rem, 2.8vw, 2rem);
+	}
+
+	.section-head-compact p {
+		font-size: 0.95rem;
+		line-height: 1.55;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>

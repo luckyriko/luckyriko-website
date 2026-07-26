@@ -1,0 +1,34 @@
+---
+import HomePanel from './HomePanel.astro';
+import SectionHead from '../SectionHead.astro';
+import ProductCarousel from '../ProductCarousel.astro';
+import { products } from '../../data/products';
+---
+
+<HomePanel id="products" section="products">
+	<SectionHead
+		eyebrow="Our Products"
+		title="产品信息"
+		href="/products"
+		description="以原创 IP 为核心，持续打造高品质互动内容与多元文化产品。"
+	/>
+	<div class="panel-body">
+		<ProductCarousel products={products} fill />
+	</div>
+</HomePanel>
+
+<style>
+	.panel-body {
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.panel-body :global(.product-carousel) {
+		flex: 1 1 auto;
+		min-height: 0;
+		height: 100%;
+	}
+</style>

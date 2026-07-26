@@ -1,0 +1,56 @@
+---
+import HomePanel from './HomePanel.astro';
+import SectionHead from '../SectionHead.astro';
+import RoleGrid from '../RoleGrid.astro';
+import { careers } from '../../data/careers';
+---
+
+<HomePanel id="careers" section="careers">
+	<div class="careers-grid">
+		<div class="careers-copy reveal">
+			<SectionHead
+				eyebrow="Careers"
+				title={careers.headline}
+				href="/careers"
+				description={careers.subhead}
+			/>
+			<a class="btn btn-primary" href={careers.cta.href} target="_blank" rel="noopener noreferrer">
+				{careers.cta.label}
+			</a>
+		</div>
+		<RoleGrid items={careers.categories} />
+	</div>
+</HomePanel>
+
+<style>
+	.careers-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		gap: clamp(1.25rem, 4vw, 2.5rem);
+		align-items: center;
+		flex: 1 1 auto;
+		min-height: 0;
+		width: 100%;
+	}
+
+	.careers-copy :global(.section-head) {
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 900px) {
+		.careers-grid {
+			grid-template-columns: 1fr;
+			align-content: center;
+		}
+
+		.careers-grid :global(.role-grid) {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.careers-grid :global(.role-grid) {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

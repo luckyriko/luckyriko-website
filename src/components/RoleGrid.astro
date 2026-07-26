@@ -1,0 +1,55 @@
+---
+interface Props {
+	items: readonly { title: string; text: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="role-grid reveal reveal-delay-1">
+	{
+		items.map((item) => (
+			<article>
+				<h3>{item.title}</h3>
+				<p>{item.text}</p>
+			</article>
+		))
+	}
+</div>
+
+<style>
+	.role-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.85rem;
+	}
+
+	.role-grid article {
+		padding: 1rem 0.95rem;
+		border-top: 2px solid var(--mh-accent);
+		background: color-mix(in srgb, var(--mh-paper-elevated) 85%, transparent);
+	}
+
+	.role-grid h3 {
+		margin: 0 0 0.4rem;
+		font-family: var(--mh-font-display);
+		font-size: 1rem;
+	}
+
+	.role-grid p {
+		margin: 0;
+		color: var(--mh-muted);
+		line-height: 1.55;
+		font-size: 0.9rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	@media (max-width: 720px) {
+		.role-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
