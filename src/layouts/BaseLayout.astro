@@ -1,65 +1,65 @@
 ---
-import '@picocss/pico/css/pico.conditional.min.css';
-import '../styles/global.css';
-import Seo from '../components/Seo.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import "@picocss/pico/css/pico.conditional.min.css";
+import "../styles/global.css";
+import Seo from "../components/Seo.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
-	title: string;
-	description?: string;
-	image?: string;
-	type?: 'website' | 'article';
+  title: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
 }
 
 const { title, description, image, type } = Astro.props;
-const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "";
 ---
 
 <!doctype html>
 <html lang="zh-CN">
-	<head>
-		<Seo title={title} description={description} image={image} type={type} />
-	</head>
-	<body class:list={[{ 'page-home': isHome }]}>
-		<a class="skip-link visually-hidden" href="#main">跳到主要内容</a>
-		<Header />
-		<main id="main">
-			<slot />
-		</main>
-		<Footer />
-		<script>
-			import '../scripts/site.ts';
-		</script>
-	</body>
+  <head>
+    <Seo title={title} description={description} image={image} type={type} />
+  </head>
+  <body class:list={[{ "page-home": isHome }]}>
+    <a class="skip-link visually-hidden" href="#main">跳到主要内容</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import "../scripts/site.ts";
+    </script>
+  </body>
 </html>
 
 <style is:global>
-	.skip-link:focus {
-		position: fixed;
-		top: 0.75rem;
-		left: 0.75rem;
-		z-index: 100;
-		width: auto;
-		height: auto;
-		margin: 0;
-		padding: 0.65rem 1rem;
-		overflow: visible;
-		clip: auto;
-		white-space: normal;
-		background: var(--mh-accent);
-		color: #fff;
-	}
+  .skip-link:focus {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0.65rem 1rem;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: var(--mh-accent);
+    color: #fff;
+  }
 
-	main {
-		min-height: 60vh;
-	}
+  main {
+    min-height: 60vh;
+  }
 
-	body.page-home {
-		overflow-x: hidden;
-	}
+  body.page-home {
+    overflow-x: hidden;
+  }
 
-	body.page-home main {
-		min-height: 0;
-	}
+  body.page-home main {
+    min-height: 0;
+  }
 </style>

@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { about } from "../data/about";
+import aboutImage from "../assets/about.jpg";
 ---
 
 <BaseLayout
@@ -12,7 +13,7 @@ import { about } from "../data/about";
     eyebrow="About Us"
     title="了解我们"
     description={about.missionEn}
-    image="/images/about.jfif"
+    image={aboutImage}
   />
 
   <section class="section">

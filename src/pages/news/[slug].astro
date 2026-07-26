@@ -1,132 +1,140 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { news, getNewsBySlug } from '../../data/news';
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { news, getNewsBySlug } from "../../data/news";
 
 export function getStaticPaths() {
-	return news.map((item) => ({
-		params: { slug: item.slug },
-	}));
+  return news.map((item) => ({
+    params: { slug: item.slug },
+  }));
 }
 
 const { slug } = Astro.params;
 const item = getNewsBySlug(slug!);
 
 if (!item) {
-	throw new Error(`未找到新闻：${slug}`);
+  throw new Error(`未找到新闻：${slug}`);
 }
 ---
 
-<BaseLayout title={item.title} description={item.summary} image={item.image} type="article">
-	<article class="article">
-		<header class="article-hero">
-			<div class="article-hero-media" aria-hidden="true">
-				<img src={item.image} alt="" width="1600" height="900" decoding="async" fetchpriority="high" />
-				<div class="article-hero-overlay"></div>
-			</div>
-			<div class="container-wide article-hero-content">
-				<p class="meta">
-					<span>{item.category}</span>
-					<time datetime={item.date}>{item.date}</time>
-				</p>
-				<h1>{item.title}</h1>
-				<p class="summary">{item.summary}</p>
-			</div>
-		</header>
+<BaseLayout title={item.title} description={item.summary} type="article">
+  <article class="article">
+    <header class="article-hero">
+      <div class="article-hero-media" aria-hidden="true">
+        <Image
+          src={item.image}
+          alt=""
+          width="1600"
+          height="900"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <div class="article-hero-overlay"></div>
+      </div>
+      <div class="container-wide article-hero-content">
+        <p class="meta">
+          <span>{item.category}</span>
+          <time datetime={item.date}>{item.date}</time>
+        </p>
+        <h1>{item.title}</h1>
+        <p class="summary">{item.summary}</p>
+      </div>
+    </header>
 
-		<div class="container-wide article-body">
-			{item.body.map((paragraph) => <p>{paragraph}</p>)}
-			<p class="back">
-				<a href="/news">← 返回新闻列表</a>
-			</p>
-		</div>
-	</article>
+    <div class="container-wide article-body">
+      {item.body.map((paragraph) => <p>{paragraph}</p>)}
+      <p class="back">
+        <a href="/news">← 返回新闻列表</a>
+      </p>
+    </div>
+  </article>
 </BaseLayout>
 
 <style>
-	.article-hero {
-		position: relative;
-		isolation: isolate;
-		min-height: min(52svh, 460px);
-		display: grid;
-		align-items: end;
-		color: var(--mh-text-inverse);
-		overflow: hidden;
-	}
+  .article-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: min(52svh, 460px);
+    display: grid;
+    align-items: end;
+    color: var(--mh-text-inverse);
+    overflow: hidden;
+  }
 
-	.article-hero-media {
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-	}
+  .article-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
 
-	.article-hero-media img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  .article-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-	.article-hero-overlay {
-		position: absolute;
-		inset: 0;
-		background: var(--mh-hero-overlay);
-	}
+  .article-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--mh-hero-overlay);
+  }
 
-	.article-hero-content {
-		padding-block: 5.5rem 2.75rem;
-		max-width: 44rem;
-	}
+  .article-hero-content {
+    padding-block: 5.5rem 2.75rem;
+    max-width: 44rem;
+  }
 
-	.meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin: 0 0 0.75rem;
-		font-size: 0.85rem;
-		letter-spacing: 0.04em;
-		color: color-mix(in srgb, #fff 75%, transparent);
-	}
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: color-mix(in srgb, #fff 75%, transparent);
+  }
 
-	.meta span {
-		color: var(--mh-accent-soft);
-		font-weight: 600;
-	}
+  .meta span {
+    color: var(--mh-accent-soft);
+    font-weight: 600;
+  }
 
-	h1 {
-		margin: 0 0 0.85rem;
-		font-family: var(--mh-font-display);
-		font-size: clamp(1.85rem, 4.5vw, 2.75rem);
-		line-height: 1.2;
-	}
+  h1 {
+    margin: 0 0 0.85rem;
+    font-family: var(--mh-font-display);
+    font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+    line-height: 1.2;
+  }
 
-	.summary {
-		margin: 0;
-		color: color-mix(in srgb, #fff 82%, transparent);
-		line-height: 1.7;
-		font-size: 1.05rem;
-	}
+  .summary {
+    margin: 0;
+    color: color-mix(in srgb, #fff 82%, transparent);
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
 
-	.article-body {
-		padding-block: 2.75rem 4.5rem;
-		max-width: 44rem;
-	}
+  .article-body {
+    padding-block: 2.75rem 4.5rem;
+    max-width: 44rem;
+  }
 
-	.article-body p {
-		margin: 0 0 1.15rem;
-		color: var(--mh-muted);
-		font-size: 1.05rem;
-		line-height: 1.85;
-	}
+  .article-body p {
+    margin: 0 0 1.15rem;
+    color: var(--mh-muted);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
 
-	.back {
-		margin-top: 2rem !important;
-	}
+  .back {
+    margin-top: 2rem !important;
+  }
 
-	.back a {
-		color: var(--mh-accent);
-		font-weight: 600;
-	}
+  .back a {
+    color: var(--mh-accent);
+    font-weight: 600;
+  }
 
-	.back a:hover {
-		text-decoration: underline;
-	}
+  .back a:hover {
+    text-decoration: underline;
+  }
 </style>

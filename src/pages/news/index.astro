@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import NewsList from "../../components/NewsList.astro";
 import { news } from "../../data/news";
+import newsImage from "../../assets/news.jpg";
 ---
 
 <BaseLayout
@@ -13,7 +14,7 @@ import { news } from "../../data/news";
     eyebrow="News"
     title="新闻动态"
     description="持续关注我们的进展与故事。"
-    image="/images/news.jfif"
+    image={newsImage}
   />
 
   <section class="section">

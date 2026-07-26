@@ -1,159 +1,163 @@
 ---
-import type { Product } from '../data/products';
+import { Image } from "astro:assets";
+import type { Product } from "../data/products";
 
 interface Props {
-	products: Product[];
+  products: Product[];
 }
 
 const { products } = Astro.props;
 ---
 
 <div class="product-grid">
-	{
-		products.map((product) => (
-			<article class="product-item reveal">
-				<a
-					class="product-link"
-					href={product.url ?? '/products'}
-					target={product.url ? '_blank' : undefined}
-					rel={product.url ? 'noopener noreferrer' : undefined}
-				>
-					<figure class="product-visual">
-						<img
-							src={product.image}
-							alt={`${product.name} 视觉`}
-							width="800"
-							height="500"
-							loading="lazy"
-							decoding="async"
-						/>
-						<div class="product-shade" style={`--accent: ${product.accent}`}></div>
-					</figure>
-					<div class="product-meta">
-						<p class="product-year">
-							{product.year} · {product.category}
-						</p>
-						<h3>
-							<span class="name-zh">{product.name}</span>
-							<span class="name-en">{product.nameEn}</span>
-						</h3>
-						<p class="product-tagline">{product.tagline}</p>
-					</div>
-				</a>
-			</article>
-		))
-	}
+  {
+    products.map((product) => (
+      <article class="product-item reveal">
+        <a
+          class="product-link"
+          href={product.url ?? "/products"}
+          target={product.url ? "_blank" : undefined}
+          rel={product.url ? "noopener noreferrer" : undefined}
+        >
+          <figure class="product-visual">
+            <Image
+              src={product.image}
+              alt={`${product.name} 视觉`}
+              width="800"
+              height="500"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="product-shade" style={`--accent: ${product.accent}`} />
+          </figure>
+          <div class="product-meta">
+            <p class="product-year">
+              {product.year} · {product.category}
+            </p>
+            <h3>
+              <span class="name-zh">{product.name}</span>
+              <span class="name-en">{product.nameEn}</span>
+            </h3>
+            <p class="product-tagline">{product.tagline}</p>
+          </div>
+        </a>
+      </article>
+    ))
+  }
 </div>
 
 <style>
-	.product-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.25rem;
-		align-items: stretch;
-	}
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
 
-	.product-item {
-		min-width: 0;
-	}
+  .product-item {
+    min-width: 0;
+  }
 
-	.product-link {
-		display: grid;
-		grid-template-rows: auto 1fr;
-		gap: 0.9rem;
-		height: 100%;
-	}
+  .product-link {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0.9rem;
+    height: 100%;
+  }
 
-	.product-visual {
-		position: relative;
-		margin: 0;
-		width: 100%;
-		aspect-ratio: 16 / 10;
-		overflow: hidden;
-		background: var(--mh-surface-2);
-	}
+  .product-visual {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--mh-surface-2);
+  }
 
-	.product-visual img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
-		transition: transform 0.7s var(--mh-ease);
-	}
+  .product-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s var(--mh-ease);
+  }
 
-	.product-shade {
-		position: absolute;
-		inset: auto 0 0 0;
-		height: 55%;
-		background: linear-gradient(transparent, color-mix(in srgb, #05080f 78%, var(--accent)));
-		pointer-events: none;
-	}
+  .product-shade {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 55%;
+    background: linear-gradient(
+      transparent,
+      color-mix(in srgb, #05080f 78%, var(--accent))
+    );
+    pointer-events: none;
+  }
 
-	.product-link:hover .product-visual img {
-		transform: scale(1.04);
-	}
+  .product-link:hover .product-visual img {
+    transform: scale(1.04);
+  }
 
-	.product-meta {
-		display: grid;
-		grid-template-rows: auto auto 1fr;
-		gap: 0.35rem;
-		align-content: start;
-	}
+  .product-meta {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 0.35rem;
+    align-content: start;
+  }
 
-	.product-year {
-		margin: 0;
-		font-size: 0.8rem;
-		color: var(--mh-muted);
-		letter-spacing: 0.04em;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
+  .product-year {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--mh-muted);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-	h3 {
-		margin: 0;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: 0.55rem 0.85rem;
-		font-size: 1.25rem;
-		line-height: 1.25;
-		min-height: 2.5em;
-	}
+  h3 {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.55rem 0.85rem;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    min-height: 2.5em;
+  }
 
-	.name-zh {
-		font-family: var(--mh-font-display);
-		font-weight: 700;
-	}
+  .name-zh {
+    font-family: var(--mh-font-display);
+    font-weight: 700;
+  }
 
-	.name-en {
-		font-family: var(--mh-font-display);
-		font-size: 0.82rem;
-		font-weight: 500;
-		letter-spacing: 0.04em;
-		color: var(--mh-muted);
-	}
+  .name-en {
+    font-family: var(--mh-font-display);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--mh-muted);
+  }
 
-	.product-tagline {
-		margin: 0;
-		color: var(--mh-muted);
-		line-height: 1.6;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		min-height: 3.2em;
-	}
+  .product-tagline {
+    margin: 0;
+    color: var(--mh-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3.2em;
+  }
 
-	@media (max-width: 960px) {
-		.product-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
+  @media (max-width: 960px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 
-	@media (max-width: 640px) {
-		.product-grid {
-			grid-template-columns: 1fr;
-		}
-	}
+  @media (max-width: 640px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

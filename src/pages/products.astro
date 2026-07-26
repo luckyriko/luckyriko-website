@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import ProductGrid from "../components/ProductGrid.astro";
 import { products } from "../data/products";
+import productsImage from "../assets/products.jpg";
 ---
 
 <BaseLayout
@@ -13,7 +14,7 @@ import { products } from "../data/products";
     eyebrow="Our Products"
     title="产品信息"
     description="以技术与创意为驱动，打造跨越游戏、动画、音乐与社区的内容矩阵。"
-    image="/images/products.jpg"
+    image={productsImage}
   />
 
   <section class="section">
